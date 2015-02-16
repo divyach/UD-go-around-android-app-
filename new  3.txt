@@ -1,0 +1,144 @@
+package com.ud;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.Bitmap.Config;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.Projection;
+
+public class UDMaps extends MapActivity {
+
+	MapView mapView;
+	boolean ready = false;
+	private List<Overlay> mapOverlays;
+	private Projection projection;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		mapView = (MapView) findViewById(R.id.mapview);
+		mapView.setBuiltInZoomControls(true);
+/*
+		LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationmanager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onProviderDisabled(String provider) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onLocationChanged(Location location) {
+				mapOverlays = mapView.getOverlays();        
+				projection = mapView.getProjection();
+				mapOverlays.add(new MyOverlay(location));
+
+			}
+		});*/
+
+		mapOverlays = mapView.getOverlays();        
+		projection = mapView.getProjection();
+		mapOverlays.add(new MyOverlay());
+
+	}
+
+	boolean checkStatus(Location loc)
+	{
+		return ready;
+	}
+
+	class MyOverlay extends Overlay{
+
+		//private Location loc;
+
+		public MyOverlay(){
+			}   
+
+		public void draw(Canvas canvas, MapView mapv, boolean shadow){
+			super.draw(canvas, mapv, shadow);
+
+			Paint mPaint = new Paint();
+			mPaint.setDither(true);
+			mPaint.setColor(Color.RED);
+			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+			mPaint.setStrokeJoin(Paint.Join.ROUND);
+			mPaint.setStrokeCap(Paint.Cap.ROUND);
+			mPaint.setStrokeWidth(2);
+
+			Paint cPaint = new Paint();
+			cPaint.setDither(true);
+			cPaint.setColor(Color.BLUE);
+			cPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+			cPaint.setStrokeJoin(Paint.Join.ROUND);
+			cPaint.setStrokeCap(Paint.Cap.ROUND);
+			cPaint.setStrokeWidth(4);
+
+			
+			ArrayList<Position> paths = PathInfo.getInstance().path;
+			for(int i=0; i<paths.size()-1; i++)
+			{
+				GeoPoint gP1 = new GeoPoint((int)(paths.get(i).latitude*1000000),(int)(paths.get(i).longitude*1000000));
+				GeoPoint gP2 = new GeoPoint((int)(paths.get(i+1).latitude*1000000),(int)(paths.get(i+1).longitude*1000000));
+
+				Point p1 = new Point();
+				Point p2 = new Point();
+
+				Path path = new Path();
+
+				projection.toPixels(gP1, p1);
+				projection.toPixels(gP2, p2);
+
+				path.moveTo(p2.x, p2.y);
+				path.lineTo(p1.x,p1.y);
+
+				canvas.drawPath(path, mPaint);
+				canvas.drawCircle(p1.x, p1.y, 2, cPaint);
+				canvas.drawCircle(p2.x, p2.y, 2, cPaint);
+			}
+		}
+	}
+
+
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
+	}
+}

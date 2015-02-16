@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello"></string>
+    <string name="app_name">UD</string>
+    <string name="no_buildings">No Buildings Information stored</string>
+    <string name="menu_insert">Add Building Info.</string>
+    <string name="menu_delete">Delete</string>
+    <string name="edit_note">Edit Building Info.</string>
+    <string name="name">Name</string>
+    <string name="code">Code</string>
+    <string name="confirm">Confirm</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="request">Submit</string>
+    <string name="tp">tp</string>
+    <string name="default_url"/>
+
+</resources>

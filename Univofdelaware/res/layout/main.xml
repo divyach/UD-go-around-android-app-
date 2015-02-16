@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+  
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
+             <Button
+                 android:id="@+id/buttonMapview"
+                 style="?android:attr/buttonStyleSmall"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentLeft="true"
+                 android:layout_marginBottom="32dp"
+                 android:layout_marginLeft="16dp"
+                 android:text="Map" />
+
+             <Button
+                 android:id="@+id/buttonSatview"
+                 style="?android:attr/buttonStyleSmall"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentTop="true"
+                 android:text="Satellite" />
+
+             <Button
+                 android:id="@+id/buttonspeakDirections"
+                 style="?android:attr/buttonStyleSmall"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignBottom="@+id/map"
+                 android:layout_alignParentRight="true"
+                 android:text="Audio" />
+
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<?php 
+echo '<br />'; 
+echo 'Site: <b>'.$_POST['sites'].'</b><br />'; 
+echo 'Department: <b>'.$_POST['dept'].'</b><br />'; 
+echo 'Location of wreck: <b>' .$_POST['location'].'</b><br />'; 
+?> 
+<input type="hidden" name="dept" value="<? echo $_POST['dept']?>"> 
+<input type="submit" value="Confirm" />
